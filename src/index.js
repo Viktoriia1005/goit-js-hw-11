@@ -1,17 +1,14 @@
 import './css/common.css';
-
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
 import ApiService from './js/api-service';
 import markup from './js/markup';
 import LoadMoreBtn from './js/load-more-button';
 
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const form = document.querySelector('.search-form');
 const searchButton = document.querySelector('[type=submit]');
-
 const gallery = document.querySelector('.gallery');
 
 const options = {
@@ -27,7 +24,6 @@ const loadMoreBtn = new LoadMoreBtn({
   selector: '.load-more',
   hidden: true,
 });
-
 let galleryLightBox = new SimpleLightbox('.gallery a', options.simpleLightBox);
 
 function dataProcessing(data) {
