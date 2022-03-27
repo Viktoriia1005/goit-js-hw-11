@@ -27,6 +27,7 @@ const loadMoreBtn = new LoadMoreBtn({
 let galleryLightBox = new SimpleLightbox('.gallery a', options.simpleLightBox);
 
 function dataProcessing(data) {
+  searchButton.disabled = false;
   if (data.data.totalHits === 0) {
     return Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.',
@@ -52,15 +53,16 @@ function dataProcessing(data) {
   }
 }
 
-function loadPictures() {
-  apiService
-    .getPictures()
-    .then(dataProcessing)
-    .then(loadMoreBtn.show())
-    .catch(error => {
-      console.log(error);
-      Notify.failure('Something went wrong, please try again...');
-    });
+async function loadPictures() {
+  try {
+    const response = await apiService.getPictures();
+    const process = await dataProcessing(response);
+    const showBtn = await loadMoreBtn.show();
+    return process;
+  } catch (error) {
+    console.log(error);
+    Notify.failure('Something went wrong, please try again...');
+  }
 }
 
 function onFormSubmit(event) {
